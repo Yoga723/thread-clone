@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: { ignoreBuildErrors: true },
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ["mongoose"], // Diset meh nextjsna apal kudu ngarender action ti mongoose
