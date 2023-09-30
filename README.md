@@ -1,34 +1,23 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Alur Mengambil data User dari clerk dan display ke onBoarding
+1. Data user(google, dll) disimpan di userData{} terletak di onboarding.
+2. userData{} dikirim ke AccountProfile dimasukkan ke useForm dengna variabel form. Di spread (pake ...) ke Form component untuk bisa ditampilkan datanya. Form disini pake library shadcn.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Mengubah data gambar 
+1. Saat user memasukkan gambar, event onChange akan dipanggil dan memanggil fungsi handleImage(e, field.onChange). Disini mengirim value event sebagai parameter dan field.onChange untuk menerima return/hasil dari handleImage.
+2. Di handleImage terdapat fileReader untuk membaca file dari event yang diterima.
+3. gambar dengan tipe FileList[{}] diubah menjadi Array[{}] dan disimpan di useState file.
+4. variabel file yang dengan tipe  FileList[{}] dibaca oleh fileReader  membuat temp url dan mengirim datanya ke parameter fieldChange(masih belum tau apa fungsinya).
+5. di fungsi onSubmit, menerima values data yang isinya object{} pengguna. pertama memastikan kalau terdapat gambar decoded base64 dari profile_photo.
+6. Bila data gambar berganti maka, mulai upload data gambar menggunakan api createUploadthing untuk upload dan membuat fileUrl
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## TODO 
+1. Tombol profile SideBar masih menunjukkan error.
+Expected behaviour : path url seharusnya /profile/[id] dan return profile dari user tersebut
+2. Fix create Thread dan comment thread. 
+Expected behaviour : saat membuat thread atau comment menggunakan akun second, data profile dan nama seharusnya akun second bukan primary akun.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
