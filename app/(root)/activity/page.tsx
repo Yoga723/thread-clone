@@ -1,8 +1,3 @@
-import UserCard from "@/components/cards/UserCard";
-import PostThread from "@/components/forms/PostThread";
-import ProfileHeader from "@/components/shared/ProfileHeader";
-import ThreadsTab from "@/components/shared/ThreadsTab";
-import { profileTabs } from "@/constants";
 import { fetchUser, fetchUsers, getActivity } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
@@ -27,7 +22,6 @@ const Page = async () => {
         {activity.length > 0 ? (
           <>
             {activity.map((activity) => {
-              console.log(activity);
               return (
                 <Link
                   key={activity._id}

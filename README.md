@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## TODO
+
+1. Tombol profile SideBar masih menunjukkan error.
+   Expected behaviour : path url seharusnya /profile/[id] dan return profile dari user tersebut
+2. Buat action notification menggunakan webhook dari clerk
+3. Buat Thread dari community tapi datanya tidak diterima mongoDB. Sudah coba troubleshooting tapi masih error
+   Expected behaviour : data organisasi dikirim ke communities didalam mongoDB.
+   Need to Check : kemungkinan besar masalahnya dibagian thread.actions.
+   Suggestion : Copy codenya ke chatGPT untuk troubleshooting
+
 ## Alur Mengambil data User dari clerk dan display ke onBoarding
 
 1. Data user(google, dll) disimpan di userData{} terletak di onboarding.
@@ -13,9 +23,3 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 4. variabel file yang dengan tipe FileList[{}] dibaca oleh fileReader membuat temp url dan mengirim datanya ke parameter fieldChange(masih belum tau apa fungsinya).
 5. di fungsi onSubmit, menerima values data yang isinya object{} pengguna. pertama memastikan kalau terdapat gambar decoded base64 dari profile_photo.
 6. Bila data gambar berganti maka, mulai upload data gambar menggunakan api createUploadthing untuk upload dan membuat fileUrl
-
-## TODO
-
-1. Tombol profile SideBar masih menunjukkan error.
-   Expected behaviour : path url seharusnya /profile/[id] dan return profile dari user tersebut
-2. Buat action notification menggunakan webhook dari clerk

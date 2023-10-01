@@ -34,7 +34,6 @@ const Page = async () => {
         ) : (
           <>
             {result.users.map((person) => {
-              console.log(person);
               return (
                 <UserCard
                   key={person.id}
