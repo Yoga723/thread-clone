@@ -114,6 +114,10 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
       .limit(pageSize)
       .populate({ path: "author", model: User }) // Populating Parent atau pembuat thread na
       .populate({
+        path: "community",
+        model: Community,
+      })
+      .populate({
         //Populating children atau komentarna
         path: "children",
         populate: {
@@ -146,7 +150,6 @@ export async function createThread({
 }: Params): Promise<void> {
   try {
     connectToDB();
-
     const communityIdObject = await Community.findOne(
       { id: communityId },
       { _id: 1 }

@@ -1,12 +1,18 @@
 import { currentUser } from "@clerk/nextjs";
 import AccountProfile from "@/components/forms/AccountProfile";
+import { fetchUser } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
 async function Page() {
   const user = await currentUser();
-  const userInfo = {}; // Didapatkan dari Clerk
+  if (!user) return null;
+
+  const userInfo = await fetchUser(user.id); // Dari MongoDb
+  if (userInfo?.onboarded) redirect("/");
+
+  // Object jang di pass ka Account Profile
   const userData = {
-    // Dari database MongoDB
-    id: user?.id, // ID user dari database clerk
+    id: user.id, // ID user dari database clerk
     objectId: userInfo?._id, // ID user dari database mongodb
     username: userInfo?.username || user?.username || "",
     name: userInfo?.name || user?.firstName || "",

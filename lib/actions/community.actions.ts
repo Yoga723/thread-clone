@@ -8,72 +8,85 @@ import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";
 
+// Fungsi untuk membuat komunitas baru
 export async function createCommunity(
   id: string,
   name: string,
   username: string,
   image: string,
   bio: string,
-  createdById: string // Change the parameter name to reflect it's an id
+  createdById: string
 ) {
   try {
+    // Koneksikan ke database MongoDB
     connectToDB();
 
-    // Find the user with the provided unique id
+    // Cari pengguna dengan ID yang diberikan
     const user = await User.findOne({ id: createdById });
 
+    // Jika pengguna tidak ditemukan, lempar error
     if (!user) {
-      throw new Error("User not found"); // Handle the case if the user with the id is not found
+      throw new Error("Pengguna tidak ditemukan");
     }
 
+    // Buat objek komunitas baru
     const newCommunity = new Community({
       id,
       name,
       username,
       image,
       bio,
-      createdBy: user._id, // Use the mongoose ID of the user
+      createdBy: user._id, // Gunakan ID dari MongoDB dari pengguna
     });
 
+    // Simpan komunitas ke dalam database
     const createdCommunity = await newCommunity.save();
 
-    // Update User model
+    // Update model User dengan menambahkan ID thread yang baru dibuat
     user.communities.push(createdCommunity._id);
     await user.save();
 
     return createdCommunity;
   } catch (error) {
-    // Handle any errors
-    console.error("Error creating community:", error);
+    // Tangani error yang mungkin terjadi
+    console.error("Error saat membuat komunitas:", error);
     throw error;
   }
 }
-
+// Fungsi untuk mendapatkan detail dari komunitas berdasarkan ID
 export async function fetchCommunityDetails(id: string) {
   try {
+    // Koneksikan ke database MongoDB
     connectToDB();
 
+    // Ambil detail komunitas dengan ID yang diberikan
+    // dan ambil juga informasi terkait 'createdBy' dan 'members' dari komunitas tersebut
     const communityDetails = await Community.findOne({ id }).populate([
       "createdBy",
       {
         path: "members",
         model: User,
+        // Pilih field-field tertentu yang akan diambil dari model User
         select: "name username image _id id",
       },
     ]);
 
     return communityDetails;
   } catch (error) {
-    // Handle any errors
-    console.error("Error fetching community details:", error);
+    // Tangani error yang mungkin terjadi
+    console.error("Error saat mengambil detail komunitas:", error);
     throw error;
   }
 }
 
+// Fungsi untuk mendapatkan postingan dari komunitas berdasarkan ID
 export async function fetchCommunityPosts(id: string) {
   try {
+    // Koneksikan ke database MongoDB
     connectToDB();
 
+    // Ambil postingan dari komunitas dengan ID yang diberikan
+    // dan ambil juga informasi terkait 'threads', 'author', dan 'children' dari setiap postingan
     const communityPosts = await Community.findById(id).populate({
       path: "threads",
       model: Thread,
@@ -81,7 +94,8 @@ export async function fetchCommunityPosts(id: string) {
         {
           path: "author",
           model: User,
-          select: "name image id", // Select the "name" and "_id" fields from the "User" model
+          // Pilih field-field tertentu yang akan diambil dari model User
+          select: "name image id",
         },
         {
           path: "children",
@@ -89,7 +103,8 @@ export async function fetchCommunityPosts(id: string) {
           populate: {
             path: "author",
             model: User,
-            select: "image _id", // Select the "name" and "_id" fields from the "User" model
+            // Pilih field-field tertentu yang akan diambil dari model User
+            select: "image _id",
           },
         },
       ],
@@ -97,8 +112,8 @@ export async function fetchCommunityPosts(id: string) {
 
     return communityPosts;
   } catch (error) {
-    // Handle any errors
-    console.error("Error fetching community posts:", error);
+    // Tangani error yang mungkin terjadi
+    console.error("Error saat mengambil postingan komunitas:", error);
     throw error;
   }
 }

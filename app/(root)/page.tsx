@@ -3,12 +3,16 @@ import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
 import ThreadCard from "@/components/cards/ThreadCard";
+import { fetchUser } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const user = await currentUser();
-  const result = await fetchPosts(1, 30); //  Masih belum berfungsi secara dinamis
+  const user = await currentUser(); // Ngambil data user saat ini dari clerk
 
-  // console.log(result);
+  if (!user) return null;
+  const result = await fetchPosts(1, 30); //  Masih belum berfungsi secara dinamis
+  const userInfo = await fetchUser(user.id); // Ngambil data user dari mongoDb
+  if (!userInfo?.onBoarded) redirect("/onboarding");
 
   return (
     <>

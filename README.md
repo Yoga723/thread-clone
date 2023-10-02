@@ -5,10 +5,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 1. Tombol profile SideBar masih menunjukkan error.
    Expected behaviour : path url seharusnya /profile/[id] dan return profile dari user tersebut
 2. Buat action notification menggunakan webhook dari clerk
-3. Buat Thread dari community tapi datanya tidak diterima mongoDB. Sudah coba troubleshooting tapi masih error
-   Expected behaviour : data organisasi dikirim ke communities didalam mongoDB.
-   Need to Check : kemungkinan besar masalahnya dibagian thread.actions.
-   Suggestion : Copy codenya ke chatGPT untuk troubleshooting
 
 ## Alur Mengambil data User dari clerk dan display ke onBoarding
 

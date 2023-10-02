@@ -12,7 +12,7 @@ import {
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Threads",
+  title: "Threads Clone || Yoga723",
   description: "A Next.js 13 Meta Threads application",
 };
 
