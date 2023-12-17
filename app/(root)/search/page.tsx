@@ -1,8 +1,5 @@
 import UserCard from "@/components/cards/UserCard";
-import PostThread from "@/components/forms/PostThread";
-import ProfileHeader from "@/components/shared/ProfileHeader";
-import ThreadsTab from "@/components/shared/ThreadsTab";
-import { profileTabs } from "@/constants";
+import Search from "@/components/forms/Search";
 import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
@@ -12,6 +9,7 @@ const Page = async () => {
   const user = await currentUser();
 
   if (!user) return null;
+  
 
   //   Fetch Users
   const result = await fetchUsers({
@@ -26,6 +24,8 @@ const Page = async () => {
   return (
     <section>
       <h1 className="head-text">Search</h1>
+
+      <Search partOf={"SearchUsers"}/>
 
       {/* Search Bar */}
       <div className="mt-14 flex flex-col gap-9 ">

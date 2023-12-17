@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 1. Tombol profile SideBar masih menunjukkan error.
    Expected behaviour : path url seharusnya /profile/[id] dan return profile dari user tersebut
 2. Buat action notification menggunakan webhook dari clerk
+3. Dibagian Page Search, komponen seachnya. harus ngirim userId, pageNumber, dll tidak bisa hanya searchString. 
+   Meski sudah bisa nge fetchUsers, masih belum tau cara return ke page searchnya 
 
 ## Alur Mengambil data User dari clerk dan display ke onBoarding
 
